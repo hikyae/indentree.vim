@@ -1,0 +1,102 @@
+*indentree.vim.txt*	Convert whitespace-indented structure into tree
+
+Version: 1.0.0
+Author: hikyae <h1ky43 at gmail.com>
+License: MIT license
+
+==============================================================================
+CONTENTS						*indentree-contents*
+
+Introduction						|indentree-introduction|
+Usage							|indentree-usage|
+Commands						|indentree-command|
+Mapping							|indentree-mapping|
+Settings						|indentree-settings|
+Changelog						|indentree-changelog|
+
+
+==============================================================================
+INTRODUCTION						*indentree*
+
+You can represent the directory structure with whitespace-based indentation,
+and then convert it into a tree structure like outputs of `tree` commands in
+Unix and MS-DOS.
+
+==============================================================================
+USAGE							*indentree-usage*
+
+Represent the directory structure with whitespace-based indentation.
+This plugin uses 'tabstop' option to determine the depth of each node.
+Though you can `set expandtab`, make sure to represent the structure
+using spaces with 'tabstop' width.
+
+- Command line
+
+" convert all text in the buffer
+:IndentreeConvert
+" convert text within a specified range
+:5,15IndentreeConvert
+" switch to unix-like style
+:IndentreeStyle unix
+" switch to unix-like style with ascii option
+:IndentreeStyle unix_ascii
+" switch to dos-like style
+:IndentreeStyle dos
+" switch to dos-like style with ascii option
+:IndentreeStyle dos_ascii
+
+- Keymap
+
+Select text in visual mode and type the mapped key
+
+==============================================================================
+COMMANDS						*indentree-commands*
+
+These commands are local to the buffers in which they work (generally, buffers
+that are part of Git repositories).
+
+							*:IndentreeConvert*
+:[range]IndentreeConvert			Convert text within a given range
+
+							*:IndentreeStyle*
+:IndentreeStyle {arg}	Switch indentation style. Preset styles are following
+			unix, unix_ascii, dos, dos_ascii
+
+==============================================================================
+MAPPING							*indentree-mapping*
+
+<Plug>(indentree-convert)	Convert selected text in visual mode.
+
+==============================================================================
+SETTINGS						*indentree-settings*
+
+Keymap for converting selected text in visual mode
+
+vmap <Leader>I <Plug>(indentree-convert)
+
+Styles for tree structure
+
+let g:indentree_style = 'unix' " default. like `tree` in Unix
+let g:indentree_style = 'unix_ascii' " like `tree --charset=ascii` in Unix
+let g:indentree_style = 'dos' " like `tree` in MS-DOS
+let g:indentree_style = 'dos_ascii' " like `tree /A` in MS-DOS
+
+You can also custom tree characters by defining g:indentree_styles in your .vimrc file
+
+" example
+let g:indentree_style = 'custom'
+let g:indentree_styles = {
+      \ 'unix':       ['    ', '│   ', '└── ', '├── '],
+      \ 'unix_ascii': ['    ', '|   ', '`-- ', '|-- '],
+      \ 'dos':        ['    ', '│   ', '└───', '├───'],
+      \ 'dos_ascii':  ['    ', '|   ', '\---', '+---'],
+      \ 'custom':     ['  ', '| ', '`-', '|-']
+      \ }
+
+==============================================================================
+CHANGELOG						*indentree-changelog*
+
+1.0.0	2024-05-??
+	- first release
+
+vim:tw=78:ts=8:ft=help:norl:noexpandtab
