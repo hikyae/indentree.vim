@@ -52,11 +52,9 @@ Select text in visual mode and type the mapped key
 ==============================================================================
 COMMANDS						*indentree-commands*
 
-These commands are local to the buffers in which they work (generally, buffers
-that are part of Git repositories).
-
 							*:IndentreeConvert*
-:[range]IndentreeConvert			Convert text within a given range
+:[range]IndentreeConvert	Convert text within a given range.
+				Convert whole text without [range].
 
 							*:IndentreeStyle*
 :IndentreeStyle {arg}	Switch indentation style. Preset styles are following
