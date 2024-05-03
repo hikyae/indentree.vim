@@ -16,7 +16,7 @@ Changelog						|indentree-changelog|
 
 
 ==============================================================================
-INTRODUCTION						*indentree*
+INTRODUCTION						*indentree-introduction*
 
 You can represent the directory structure with whitespace-based indentation,
 and then convert it into a tree structure like outputs of `tree` commands in
