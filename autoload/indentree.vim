@@ -50,7 +50,7 @@ endfunction
 function! s:ancestor_line(nodes, node) abort
   let ancestors = []
   let ancestor = a:nodes[a:node['parent'] + 1]
-  while ancestor['no'] > 0
+  while ancestor['depth'] >= 1
     call add(ancestors, ancestor)
     let ancestor = a:nodes[ancestor['parent'] + 1]
   endwhile
@@ -59,7 +59,7 @@ function! s:ancestor_line(nodes, node) abort
   let line = ''
   let added_depth = 0
   for ancestor in ancestors
-    if stridx(ancestor['tree_part'], g:indentree_el) >= 0 || ancestor['depth'] == 0
+    if stridx(ancestor['tree_part'], g:indentree_el) >= 0
       let line .= repeat(g:indentree_whitespace, ancestor['depth'] - added_depth)
     else
       let line .= g:indentree_bar .. repeat(g:indentree_whitespace, ancestor['depth'] - added_depth - 1)
