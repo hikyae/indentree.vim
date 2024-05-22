@@ -9,7 +9,8 @@ endfunction
 
 function! indentree#set_style(style) abort
   if index(keys(g:indentree_styles), a:style) == -1
-    echohl WarningMsg | echo 'Available styles are unix, unix_ascii, dos, dos_ascii.' | echohl None
+    let available_styles = join(sort(keys(g:indentree_styles)), ', ')
+    echohl WarningMsg | echo $'Available styles are {available_styles}.' | echohl None
     return
   endif
   let g:indentree_style = a:style
