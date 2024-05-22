@@ -57,14 +57,14 @@ function! s:ancestor_line(nodes, node) abort
 
   let ancestors = sort(ancestors, {a1, a2 -> a1['no'] - a2['no']})
   let line = ''
-  let depth = 0
+  let added_depth = 0
   for ancestor in ancestors
     if stridx(ancestor['tree_part'], g:indentree_el) >= 0 || ancestor['depth'] == 0
-      let line .= repeat(g:indentree_whitespace, ancestor['depth'] - depth)
+      let line .= repeat(g:indentree_whitespace, ancestor['depth'] - added_depth)
     else
-      let line .= g:indentree_bar .. repeat(g:indentree_whitespace, ancestor['depth'] - depth - 1)
+      let line .= g:indentree_bar .. repeat(g:indentree_whitespace, ancestor['depth'] - added_depth - 1)
     endif
-    let depth = ancestor['depth']
+    let added_depth = ancestor['depth']
   endfor
 
   return line
@@ -73,12 +73,12 @@ endfunction
 function! s:nodes_to_tree(nodes) abort
   let tree = []
   for node in a:nodes[1:]
-    let siblings = filter(a:nodes[1:], {idx, n -> n['parent'] == node['no']})
-    for sibling in siblings[:-2]
-      let sibling['tree_part'] = s:ancestor_line(a:nodes, sibling) .. g:indentree_tee
+    let children = filter(a:nodes[1:], {idx, n -> n['parent'] == node['no']})
+    for child in children[:-2]
+      let child['tree_part'] = s:ancestor_line(a:nodes, child) .. g:indentree_tee
     endfor
-    if len(siblings) >= 1
-      let siblings[-1]['tree_part'] = s:ancestor_line(a:nodes, siblings[-1]) .. g:indentree_el
+    if len(children) >= 1
+      let children[-1]['tree_part'] = s:ancestor_line(a:nodes, children[-1]) .. g:indentree_el
     endif
   endfor
 
