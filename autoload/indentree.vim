@@ -29,13 +29,13 @@ function! s:get_parent(past_lines, depth) abort
     endif
     let i -= 1
   endwhile
-  return -1
+  return 0
 endfunction
 
 function! s:indent_to_nodes(text) abort
   let lines = split(a:text, "\n", v:true)
-  let nodes = [{'no': -1, 'name': v:null, 'depth': -1, 'parent': v:null, 'tree_part': v:null}]
-  let line_no = 0
+  let nodes = [{'no': 0, 'name': v:null, 'depth': -1, 'parent': v:null, 'tree_part': v:null}]
+  let line_no = 1
   for line in lines
     let name = substitute(line, '^\s*', '', '')
     let depth = (strdisplaywidth(line) - strdisplaywidth(name)) / &tabstop
@@ -49,10 +49,10 @@ endfunction
 
 function! s:ancestor_line(nodes, node) abort
   let ancestors = []
-  let ancestor = a:nodes[a:node['parent'] + 1]
+  let ancestor = a:nodes[a:node['parent']]
   while ancestor['depth'] >= 1
     call add(ancestors, ancestor)
-    let ancestor = a:nodes[ancestor['parent'] + 1]
+    let ancestor = a:nodes[ancestor['parent']]
   endwhile
 
   let ancestors = sort(ancestors, {a1, a2 -> a1['no'] - a2['no']})
