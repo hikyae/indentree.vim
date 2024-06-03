@@ -98,14 +98,11 @@ function! indentree#convert(range, line1, line2) abort
     let start = a:line1
     let end = a:line2
   endif
-  let text = getline(start, end)
-  if type(text) == 3
-    let text = join(text, "\n")
-  endif
+  let text = join(getline(start, end), "\n")
   let nodes = s:indent_to_nodes(text)
   let tree = s:nodes_to_tree(nodes)
   for i in range(0, end - start)
-      let line_no = start + i
-      call setline(line_no, tree[i])
+    let line_no = start + i
+    call setline(line_no, tree[i])
   endfor
 endfunction
