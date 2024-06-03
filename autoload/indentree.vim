@@ -32,12 +32,11 @@ function! s:get_parent(past_lines, depth) abort
   return 0
 endfunction
 
-function! s:indent_to_nodes(text) abort
-  let lines = split(a:text, "\n", v:true)
+function! s:indent_to_nodes(lines) abort
   let nodes = [{'no': 0, 'name': v:null, 'depth': -1, 'parent': v:null, 'tree_part': v:null}]
   let line_no = 1
-  for line in lines
-    let name = substitute(line, '^\s*', '', '')
+  for line in a:lines
+    let name = substitute(line, '^' .. s:tab_white .. '*', '', '')
     let depth = (strdisplaywidth(line) - strdisplaywidth(name)) / &tabstop
     let node = {'no': line_no, 'name': name, 'depth': depth, 'tree_part': ''}
     let node['parent'] = s:get_parent(nodes, depth)
@@ -89,6 +88,11 @@ function! s:nodes_to_tree(nodes) abort
   return tree
 endfunction
 
+function s:get_tab_scaffold(lines) abort
+  let scaff_num = min(mapnew(a:lines, {_, line -> len(matchstr(line, '^' .. s:tab_white .. '*'))}))
+  return join([s:tab_white]->repeat(scaff_num), '')
+endfunction
+
 function! indentree#convert(range, line1, line2) abort
   if a:range == -1
     " when calling this function from visual mode, -1 is set for a:range.
@@ -98,11 +102,14 @@ function! indentree#convert(range, line1, line2) abort
     let start = a:line1
     let end = a:line2
   endif
-  let text = join(getline(start, end), "\n")
-  let nodes = s:indent_to_nodes(text)
+  let lines = getline(start, end)
+  let s:tab_white = &expandtab ? " " : "\t"
+  let scaffold = s:get_tab_scaffold(lines)
+  call map(lines, {_, line -> substitute(line, '^' .. scaffold, '', '')})
+  let nodes = s:indent_to_nodes(lines)
   let tree = s:nodes_to_tree(nodes)
   for i in range(0, end - start)
     let line_no = start + i
-    call setline(line_no, tree[i])
+    call setline(line_no, scaffold .. tree[i])
   endfor
 endfunction
