@@ -31,7 +31,9 @@ Plug 'hikyae/indentree.vim'
 git clone https://github.com/hikyae/indentree.vim.git ~/.vim/pack/plugins/start/indentree.vim
 ```
 
-## Configuration
+## Settings
+
+You can set the mapping and variables in your .vimrc file
 
 - Keymap for converting selected text in visual mode
 

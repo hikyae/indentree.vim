@@ -1,6 +1,5 @@
 *indentree.vim.txt*	Convert whitespace-indented structure into tree
 
-Version: 1.0.0
 Author: hikyae <h1ky43 at gmail.com>
 License: MIT license
 
@@ -68,6 +67,8 @@ MAPPING							*indentree-mapping*
 ==============================================================================
 SETTINGS						*indentree-settings*
 
+You can set the mapping and variables in your .vimrc file
+
 Keymap for converting selected text in visual mode
 
 vmap <Leader>I <Plug>(indentree-convert)
@@ -96,5 +97,13 @@ CHANGELOG						*indentree-changelog*
 
 1.0.0	2024-03-20
 	- first release
+1.0.1	2024-05-03
+	- fix document
+1.0.2	2024-05-22
+	- fix warning message
+1.1.0	2024-06-03
+	- allow tree structure to start with tab scaffold
+1.1.1	2024-06-03
+	- fix document
 
 vim:tw=78:ts=8:ft=help:norl:noexpandtab
