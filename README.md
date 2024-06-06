@@ -54,14 +54,14 @@ let g:indentree_style = 'dos_ascii' " like `tree /A` in MS-DOS
 
 ```vim
 " example
-" let g:indentree_style = 'custom'
-" let g:indentree_styles = {
-"       \ 'unix':       ['    ', '│   ', '└── ', '├── '],
-"       \ 'unix_ascii': ['    ', '|   ', '`-- ', '|-- '],
-"       \ 'dos':        ['    ', '│   ', '└───', '├───'],
-"       \ 'dos_ascii':  ['    ', '|   ', '\---', '+---'],
-"       \ 'custom':     ['  ', '| ', '`-', '|-']
-"       \ }
+let g:indentree_style = 'custom'
+let g:indentree_styles = {
+      \ 'unix':       ['    ', '│   ', '└── ', '├── '],
+      \ 'unix_ascii': ['    ', '|   ', '`-- ', '|-- '],
+      \ 'dos':        ['    ', '│   ', '└───', '├───'],
+      \ 'dos_ascii':  ['    ', '|   ', '\---', '+---'],
+      \ 'custom':     ['  ', '| ', '`-', '|-']
+      \ }
 ```
 
 ## Usage
