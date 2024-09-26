@@ -33,12 +33,13 @@ git clone https://github.com/hikyae/indentree.vim.git ~/.vim/pack/plugins/start/
 
 ## Settings
 
-You can set the mapping and variables in your .vimrc file
+You can set mappings and variables in your .vimrc file
 
 - Keymap for converting selected text in visual mode
 
 ```vim
 vmap <Leader>I <Plug>(indentree-convert)
+vmap <Leader>R <Plug>(indentree-revert)
 ```
 
 - Styles for tree structure
@@ -79,6 +80,10 @@ Though you can `set expandtab`, make sure to represent the structure using space
 :IndentreeConvert
 " convert text within a specified range
 :5,15IndentreeConvert
+" revert all text in the buffer
+:IndentreeRevert
+" revert text within a specified range
+:5,15IndentreeRevert
 " switch to unix-like style
 :IndentreeStyle unix
 " switch to unix-like style with ascii option

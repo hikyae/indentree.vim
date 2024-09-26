@@ -35,6 +35,10 @@ using spaces with 'tabstop' width.
 :IndentreeConvert
 " convert text within a specified range
 :5,15IndentreeConvert
+" revert all text in the buffer
+:IndentreeRevert
+" revert text within a specified range
+:5,15IndentreeRevert
 " switch to unix-like style
 :IndentreeStyle unix
 " switch to unix-like style with ascii option
@@ -55,6 +59,10 @@ COMMANDS						*indentree-commands*
 :[range]IndentreeConvert	Convert text within a given range.
 				Convert whole text without [range].
 
+							*:IndentreeRevert*
+:[range]IndentreeRevert		Revert text within a given range.
+				Revert whole text without [range].
+
 							*:IndentreeStyle*
 :IndentreeStyle {arg}	Switch indentation style. Preset styles are following
 			unix, unix_ascii, dos, dos_ascii
@@ -64,14 +72,17 @@ MAPPING							*indentree-mapping*
 
 <Plug>(indentree-convert)	Convert selected text in visual mode.
 
+<Plug>(indentree-revert)	Revert selected text in visual mode.
+
 ==============================================================================
 SETTINGS						*indentree-settings*
 
-You can set the mapping and variables in your .vimrc file
+You can set mappings and variables in your .vimrc file
 
 Keymap for converting selected text in visual mode
 
 vmap <Leader>I <Plug>(indentree-convert)
+vmap <Leader>R <Plug>(indentree-revert)
 
 Styles for tree structure
 
@@ -105,5 +116,7 @@ CHANGELOG						*indentree-changelog*
 	- allow tree structure to start with tab scaffold
 1.1.1	2024-06-03
 	- fix document
+1.2.0	2024-09-27
+	- add revert command
 
 vim:tw=78:ts=8:ft=help:norl:noexpandtab

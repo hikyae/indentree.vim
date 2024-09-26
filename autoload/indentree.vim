@@ -113,3 +113,27 @@ function! indentree#convert(range, line1, line2) abort
     call setline(line_no, scaffold .. tree[i])
   endfor
 endfunction
+
+function! indentree#revert(range, line1, line2) abort
+  if a:range == -1
+    " when calling this function from visual mode, -1 is set for a:range.
+    let start = getpos("'<")[1]
+    let end = getpos("'>")[1]
+  else
+    let start = a:line1
+    let end = a:line2
+  endif
+  let lines = getline(start, end)
+  let s:tab_white = &expandtab ? " " : "\t"
+  let scaffold = s:get_tab_scaffold(lines)
+  call map(lines, {_, line -> substitute(line, '\('
+        \ .. g:indentree_whitespace .. '\|'
+        \ .. g:indentree_bar .. '\|'
+        \ .. g:indentree_el .. '\|'
+        \ .. g:indentree_tee
+        \ .. '\)', s:tab_white, 'g')})
+  for i in range(0, end - start)
+    let line_no = start + i
+    call setline(line_no, scaffold .. lines[i])
+  endfor
+endfunction
