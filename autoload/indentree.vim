@@ -125,14 +125,16 @@ function! indentree#revert(range, line1, line2) abort
   endif
   let lines = getline(start, end)
   let s:tab_white = &expandtab ? " " : "\t"
+  let scaffold = s:get_tab_scaffold(lines)
+  call map(lines, {_, line -> substitute(line, '^' .. scaffold, '', '')})
   call map(lines, {_, line -> substitute(line, '\('
-        \ .. g:indentree_whitespace .. '\|'
-        \ .. g:indentree_bar .. '\|'
-        \ .. g:indentree_el .. '\|'
-        \ .. g:indentree_tee
+        \ .. substitute(g:indentree_whitespace, '\\', '\\\\', 'g') .. '\|'
+        \ .. substitute(g:indentree_bar, '\\', '\\\\', 'g') .. '\|'
+        \ .. substitute(g:indentree_el, '\\', '\\\\', 'g') .. '\|'
+        \ .. substitute(g:indentree_tee, '\\', '\\\\', 'g')
         \ .. '\)', repeat(s:tab_white, &expandtab ? &tabstop : 1), 'g')})
   for i in range(0, end - start)
     let line_no = start + i
-    call setline(line_no, lines[i])
+    call setline(line_no, scaffold .. lines[i])
   endfor
 endfunction

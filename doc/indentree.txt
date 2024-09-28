@@ -120,5 +120,7 @@ CHANGELOG						*indentree-changelog*
 	- add revert command
 1.2.1	2024-09-27
 	- fix revert command
+1.2.2	2024-09-29
+	- fix revert command
 
 vim:tw=78:ts=8:ft=help:norl:noexpandtab
