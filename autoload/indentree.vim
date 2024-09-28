@@ -128,10 +128,10 @@ function! indentree#revert(range, line1, line2) abort
   let scaffold = s:get_tab_scaffold(lines)
   call map(lines, {_, line -> substitute(line, '^' .. scaffold, '', '')})
   call map(lines, {_, line -> substitute(line, '\('
-        \ .. substitute(g:indentree_whitespace, '\\', '\\\\', 'g') .. '\|'
-        \ .. substitute(g:indentree_bar, '\\', '\\\\', 'g') .. '\|'
-        \ .. substitute(g:indentree_el, '\\', '\\\\', 'g') .. '\|'
-        \ .. substitute(g:indentree_tee, '\\', '\\\\', 'g')
+        \ .. escape(g:indentree_whitespace, '\') .. '\|'
+        \ .. escape(g:indentree_bar, '\') .. '\|'
+        \ .. escape(g:indentree_el, '\') .. '\|'
+        \ .. escape(g:indentree_tee, '\')
         \ .. '\)', repeat(s:tab_white, &expandtab ? &tabstop : 1), 'g')})
   for i in range(0, end - start)
     let line_no = start + i
