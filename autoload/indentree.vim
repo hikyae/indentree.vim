@@ -8,6 +8,10 @@ function! indentree#comp_style(ArgLead, CmdLine, CursorPos) abort
 endfunction
 
 function! indentree#set_style(style) abort
+  if a:style == ''
+    echo g:indentree_style
+    return
+  endif
   if index(keys(g:indentree_styles), a:style) == -1
     let available_styles = join(sort(keys(g:indentree_styles)), ', ')
     echohl WarningMsg | echo $'Available styles are {available_styles}.' | echohl None

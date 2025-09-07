@@ -38,7 +38,7 @@ vnoremap <silent> <Plug>(indentree-convert) <Esc>:call indentree#convert(-1, 0, 
 command! -range=% IndentreeConvert call indentree#convert(<range>, <line1>, <line2>)
 vnoremap <silent> <Plug>(indentree-revert) <Esc>:call indentree#revert(-1, 0, 0)<CR>
 command! -range=% IndentreeRevert call indentree#revert(<range>, <line1>, <line2>)
-command! -nargs=1 -complete=customlist,indentree#comp_style IndentreeStyle call indentree#set_style(<q-args>)
+command! -nargs=? -complete=customlist,indentree#comp_style IndentreeStyle call indentree#set_style(<q-args>)
 
 let &cpoptions = s:save_cpo
 unlet s:save_cpo
